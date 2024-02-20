@@ -3,5 +3,5 @@ version: 2
 models:
   - name: tickets
 
-    columns:
+      columns:
       - name: id

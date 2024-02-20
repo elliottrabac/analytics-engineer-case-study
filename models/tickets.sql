@@ -11,7 +11,7 @@ with tickets as (
 )
  
 
- -- this CTE rebuild the ticket message table as in the PSQL table based on the CDC events
+ -- this CTE rebuild the ticket message table as in the PSQL table based on the CDC events, same logic as above
 , ticket_message as (
     select * from (
         select *, row_number() over( partition by account_id, id order by __event_timestamp) _rnumb
