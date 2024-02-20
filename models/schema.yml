@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: tickets
+
+    columns:
+      - name: id
