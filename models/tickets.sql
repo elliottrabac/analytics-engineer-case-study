@@ -3,7 +3,7 @@
 We keep the last event received for the ticket id based on __event_timestamp and we remove the delete ticket with __deleted is false */
 with tickets as (
     Select * FROM (
-        select *, row_number() over( partition by account_id, id order by __event_timestamp ) as rn
+        select *, row_number() over( partition by account_id, id order by __event_timestamp desc) as rn
         from `growth-ops-recruiting`.helpdesk_analytics.ticket_events
     )
     where rn = 1 and  __deleted is false
@@ -14,7 +14,7 @@ with tickets as (
  -- this CTE rebuild the ticket message table as in the PSQL table based on the CDC events, same logic as above
 , ticket_message as (
     select * from (
-        select *, row_number() over( partition by account_id, id order by __event_timestamp) _rnumb
+        select *, row_number() over( partition by account_id, id order by __event_timestamp DESC) _rnumb
     from `growth-ops-recruiting`.helpdesk_analytics.ticket_message_events
     )
     where _rnumb = 1
